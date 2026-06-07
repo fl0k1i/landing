@@ -375,7 +375,7 @@ footer{
 
 <section class="hero">
   <div class="hero-left">
-    <div class="eyebrow">infrastructure for moving data</div>
+    <div class="eyebrow">API for durable realtime streams</div>
     <h1 class="hero-h1">
       What S3 is<br>
       to static data,<br>
@@ -502,76 +502,6 @@ footer{
   </div>
 </section>
 
-<section class="install reveal" id="install">
-  <div class="install-inner">
-    <div class="section-label">get started</div>
-    <h2 class="section-title">Running in<br>two minutes.</h2>
-
-    <div class="install-grid">
-      <div class="install-steps">
-        <div class="install-step">
-          <span class="step-n">01</span>
-          <div class="step-content">
-            <div class="step-title">Install the SDK</div>
-            <div class="step-desc">One package, no native dependencies. Or skip it entirely and use raw HTTP.</div>
-          </div>
-        </div>
-        <div class="install-step">
-          <span class="step-n">02</span>
-          <div class="step-content">
-            <div class="step-title">Create a session</div>
-            <div class="step-desc">One session per user conversation, agent run, or data flow. Use your own IDs.</div>
-          </div>
-        </div>
-        <div class="install-step">
-          <span class="step-n">03</span>
-          <div class="step-content">
-            <div class="step-title">Append events</div>
-            <div class="step-desc">Send tokens, tool calls, errors, metadata — anything that happens, as it happens.</div>
-          </div>
-        </div>
-        <div class="install-step">
-          <span class="step-n">04</span>
-          <div class="step-content">
-            <div class="step-title">Read live or replay</div>
-            <div class="step-desc">Tail a live session or replay any past session from sequence 0. Both are one GET request.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="code-block">
-        <div class="code-head">
-          <span class="code-lang">python</span>
-          <span class="code-copy" onclick="this.textContent='copied';setTimeout(()=>this.textContent='copy',1500)">copy</span>
-        </div>
-        <div class="code-body">
-<span class="c-cm"># install</span>
-<span class="c-dim">pip install newstream</span>
-&nbsp;
-<span class="c-kw">from</span> <span class="c-fn">newstream</span> <span class="c-kw">import</span> NewStream
-&nbsp;
-<span class="c-cm"># one session per AI run</span>
-stream <span class="c-dim">=</span> NewStream(
-&nbsp;&nbsp;base_url<span class="c-dim">=</span><span class="c-str">"https://api.newstream.dev"</span>,
-&nbsp;&nbsp;api_key<span class="c-dim">=</span><span class="c-str">"sk-your-key"</span>,
-&nbsp;&nbsp;session_id<span class="c-dim">=</span><span class="c-str">f"user-{user_id}"</span>
-)
-&nbsp;
-<span class="c-cm"># append as events happen</span>
-stream.<span class="c-fn">token</span>(<span class="c-str">"Hello"</span>, model<span class="c-dim">=</span><span class="c-str">"gpt-4o"</span>)
-stream.<span class="c-fn">tool_call</span>(<span class="c-str">"search"</span>, input, output)
-stream.<span class="c-fn">error</span>(<span class="c-str">"rate limit"</span>)
-stream.<span class="c-fn">done</span>(tokens<span class="c-dim">=</span><span class="c-num">347</span>)
-&nbsp;
-<span class="c-cm"># or raw HTTP — no SDK needed</span>
-<span class="c-cm"># POST /sessions/{id}/events</span>
-<span class="c-cm"># GET  /sessions/{id}/live</span>
-<span class="c-cm"># GET  /sessions/{id}/replay</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="cta reveal">
   <div class="cta-inner">
