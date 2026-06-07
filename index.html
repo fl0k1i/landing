@@ -1,793 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>NewStream</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:'Inter',sans-serif;
-      background:#ffffff;
-      color:#0f172a;
-      overflow-x:hidden;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    .container{
-      width:100%;
-      max-width:1240px;
-      margin:auto;
-      padding:0 28px;
-    }
-
-    /* NAVBAR */
-
-    nav{
-      height:90px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-size:30px;
-      font-weight:800;
-      letter-spacing:-1px;
-    }
-
-    .logo-icon{
-      color:#00c26e;
-      font-size:34px;
-    }
-
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:40px;
-
-      color:#475569;
-      font-size:15px;
-      font-weight:500;
-    }
-
-    .nav-btn{
-      background:#0f172a;
-      color:white;
-
-      padding:14px 18px;
-      border-radius:14px;
-
-      font-size:15px;
-      font-weight:600;
-    }
-
-    /* HERO */
-
-    .hero{
-      padding-top:70px;
-      padding-bottom:140px;
-
-      display:grid;
-      grid-template-columns:1.1fr 0.9fr;
-      gap:80px;
-      align-items:center;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-
-      background:#f0fdf4;
-      color:#166534;
-
-      border:1px solid #dcfce7;
-
-      padding:10px 16px;
-      border-radius:999px;
-
-      font-size:14px;
-      font-weight:700;
-
-      margin-bottom:28px;
-    }
-
-    .pulse{
-      width:9px;
-      height:9px;
-      border-radius:50%;
-      background:#00c26e;
-      box-shadow:0 0 12px rgba(0,194,110,0.7);
-    }
-
-    .hero h1{
-      font-size:88px;
-      line-height:0.92;
-      letter-spacing:-5px;
-      margin-bottom:28px;
-      font-weight:900;
-    }
-
-    .gradient{
-      background:linear-gradient(90deg,#00c26e,#0ea5e9);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-
-    .hero p{
-      color:#475569;
-      font-size:22px;
-      line-height:1.8;
-      max-width:720px;
-
-      margin-bottom:42px;
-    }
-
-    .hero-buttons{
-      display:flex;
-      gap:18px;
-      align-items:center;
-    }
-
-    .primary-btn{
-      background:#0f172a;
-      color:white;
-
-      padding:18px 26px;
-      border-radius:16px;
-
-      font-weight:700;
-      font-size:16px;
-
-      transition:0.2s ease;
-    }
-
-    .primary-btn:hover{
-      transform:translateY(-2px);
-    }
-
-    .secondary-btn{
-      border:1px solid #e2e8f0;
-      color:#0f172a;
-
-      padding:18px 26px;
-      border-radius:16px;
-
-      font-weight:600;
-      font-size:16px;
-    }
-
-    /* LIVE CARD */
-
-    .stream-card{
-      background:#0f172a;
-      color:white;
-
-      border-radius:28px;
-      overflow:hidden;
-
-      border:1px solid #1e293b;
-
-      box-shadow:
-      0 30px 80px rgba(15,23,42,0.15);
-    }
-
-    .stream-top{
-      padding:20px 24px;
-
-      display:flex;
-      align-items:center;
-      gap:14px;
-
-      border-bottom:1px solid rgba(255,255,255,0.06);
-    }
-
-    .live-dot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      background:#00ff88;
-      box-shadow:0 0 10px rgba(0,255,136,0.8);
-    }
-
-    .live-label{
-      color:#00ff88;
-      font-size:13px;
-      font-weight:700;
-      letter-spacing:1px;
-    }
-
-    .session{
-      color:#94a3b8;
-      font-size:14px;
-    }
-
-    .stream-body{
-      padding:28px;
-
-      font-family:monospace;
-      font-size:14px;
-      line-height:2.1;
-    }
-
-    .green{color:#00ff88;}
-    .yellow{color:#ffbf47;}
-    .purple{color:#b088ff;}
-    .red{color:#ff6b6b;}
-    .blue{color:#38bdf8;}
-    .gray{color:#94a3b8;}
-
-    /* BIG SECTION */
-
-    .big-section{
-      padding:120px 0;
-      border-top:1px solid #f1f5f9;
-      border-bottom:1px solid #f1f5f9;
-      text-align:center;
-    }
-
-    .big-title{
-      font-size:72px;
-      line-height:1;
-      letter-spacing:-4px;
-      margin-bottom:28px;
-      font-weight:900;
-    }
-
-    .big-desc{
-      font-size:24px;
-      color:#475569;
-      line-height:1.8;
-
-      max-width:900px;
-      margin:auto;
-    }
-
-    /* FEATURES */
-
-    section{
-      padding:120px 0;
-    }
-
-    .section-title{
-      text-align:center;
-      font-size:62px;
-      letter-spacing:-3px;
-      margin-bottom:24px;
-      font-weight:800;
-    }
-
-    .section-subtitle{
-      text-align:center;
-      color:#64748b;
-      font-size:21px;
-      line-height:1.8;
-
-      max-width:840px;
-      margin:auto;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:26px;
-
-      margin-top:70px;
-    }
-
-    .card{
-      background:white;
-
-      border:1px solid #e2e8f0;
-      border-radius:28px;
-
-      padding:36px;
-
-      transition:0.2s ease;
-    }
-
-    .card:hover{
-      transform:translateY(-4px);
-      border-color:#00c26e;
-
-      box-shadow:
-      0 20px 40px rgba(0,0,0,0.05);
-    }
-
-    .icon{
-      width:62px;
-      height:62px;
-
-      border-radius:18px;
-
-      background:#f8fafc;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      font-size:28px;
-
-      margin-bottom:26px;
-    }
-
-    .card h3{
-      font-size:30px;
-      letter-spacing:-1px;
-      margin-bottom:16px;
-    }
-
-    .card p{
-      color:#64748b;
-      line-height:1.8;
-      font-size:17px;
-    }
-
-    /* CODE */
-
-    .code-wrap{
-      margin-top:70px;
-
-      background:#0f172a;
-      border-radius:30px;
-
-      overflow:hidden;
-
-      box-shadow:
-      0 30px 80px rgba(15,23,42,0.1);
-    }
-
-    .code-top{
-      padding:20px 24px;
-
-      border-bottom:1px solid rgba(255,255,255,0.08);
-
-      color:#94a3b8;
-      font-size:14px;
-    }
-
-    .code{
-      padding:34px;
-
-      overflow-x:auto;
-
-      font-family:monospace;
-      line-height:2;
-      font-size:15px;
-
-      color:#00ff88;
-    }
-
-    /* CTA */
-
-    .cta{
-      background:#0f172a;
-      color:white;
-
-      border-radius:40px;
-
-      padding:80px;
-
-      text-align:center;
-    }
-
-    .cta h2{
-      font-size:64px;
-      line-height:1;
-      letter-spacing:-3px;
-
-      margin-bottom:24px;
-    }
-
-    .cta p{
-      color:#94a3b8;
-      font-size:22px;
-      line-height:1.8;
-
-      max-width:760px;
-      margin:auto auto 36px;
-    }
-
-    .cta-btn{
-      background:white;
-      color:#0f172a;
-
-      display:inline-block;
-
-      padding:18px 26px;
-      border-radius:16px;
-
-      font-weight:700;
-    }
-
-    /* FOOTER */
-
-    footer{
-      padding:60px 0;
-    }
-
-    .footer{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-
-      color:#64748b;
-      font-size:15px;
-    }
-
-    @media(max-width:980px){
-
-      .hero{
-        grid-template-columns:1fr;
-      }
-
-      .hero h1{
-        font-size:62px;
-      }
-
-      .big-title{
-        font-size:48px;
-      }
-
-      .section-title{
-        font-size:42px;
-      }
-
-      .cta h2{
-        font-size:42px;
-      }
-
-      .nav-links{
-        display:none;
-      }
-
-      .footer{
-        flex-direction:column;
-        gap:20px;
-      }
-
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NewStream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f2ec;
+  --bg2:#ede9e0;
+  --bg3:#e5e0d5;
+  --ink:#1a1814;
+  --ink2:#3d3a34;
+  --ink3:#6b6760;
+  --ink4:#a09c96;
+  --rule:#d4cfc6;
+  --accent:#c84a1e;
+  --accent2:#a33a14;
+  --serif:'Instrument Serif',Georgia,serif;
+  --mono:'Geist Mono',monospace;
+  --sans:'Geist',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 4rem;
+  border-bottom:1px solid var(--rule);
+  background:rgba(245,242,236,0.92);
+  backdrop-filter:blur(16px);
+}
+.nav-logo{
+  font-family:var(--mono);font-size:14px;font-weight:500;
+  letter-spacing:-0.02em;color:var(--ink);
+  display:flex;align-items:center;gap:10px;
+}
+.logo-stream{
+  display:flex;gap:2px;align-items:center;
+}
+.stream-bar{
+  width:2px;border-radius:2px;background:var(--accent);
+  animation:stream 1.2s ease-in-out infinite;
+}
+.stream-bar:nth-child(1){height:8px;animation-delay:0s}
+.stream-bar:nth-child(2){height:14px;animation-delay:0.15s}
+.stream-bar:nth-child(3){height:10px;animation-delay:0.3s}
+.stream-bar:nth-child(4){height:16px;animation-delay:0.45s}
+.stream-bar:nth-child(5){height:6px;animation-delay:0.6s}
+@keyframes stream{
+  0%,100%{opacity:0.3;transform:scaleY(0.6)}
+  50%{opacity:1;transform:scaleY(1)}
+}
+.nav-right{display:flex;align-items:center;gap:2.5rem}
+.nav-link{font-size:13px;color:var(--ink3);font-weight:300;letter-spacing:0.01em;transition:color 0.2s}
+.nav-link:hover{color:var(--ink)}
+.nav-cta{
+  font-family:var(--mono);font-size:12px;font-weight:500;
+  padding:8px 20px;background:var(--ink);color:var(--bg);
+  border-radius:2px;letter-spacing:0.03em;transition:background 0.2s;
+}
+.nav-cta:hover{background:var(--ink2)}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  padding:10rem 4rem 6rem;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem;
+  align-items:center;
+  max-width:1400px;margin:0 auto;
+}
+.hero-left{}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:400;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:2rem;
+  display:flex;align-items:center;gap:12px;
+}
+.eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
+.hero-h1{
+  font-family:var(--serif);
+  font-size:clamp(3.2rem,5.5vw,5.2rem);
+  font-weight:400;
+  line-height:1.08;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  margin-bottom:2rem;
+}
+.hero-h1 em{font-style:italic;color:var(--ink3)}
+.hero-sub{
+  font-size:17px;font-weight:300;
+  color:var(--ink3);line-height:1.75;
+  max-width:480px;margin-bottom:3rem;
+}
+.hero-sub strong{font-weight:500;color:var(--ink2)}
+.hero-actions{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.btn-primary{
+  font-family:var(--mono);font-size:13px;font-weight:500;
+  padding:13px 30px;background:var(--accent);color:#fff;
+  border-radius:2px;letter-spacing:0.02em;
+  transition:all 0.2s;display:inline-block;
+  border:1.5px solid var(--accent);
+}
+.btn-primary:hover{background:var(--accent2);border-color:var(--accent2);transform:translateY(-1px)}
+.btn-outline{
+  font-family:var(--mono);font-size:12px;font-weight:400;
+  padding:12px 24px;color:var(--ink2);
+  border:1.5px solid var(--rule);border-radius:2px;
+  letter-spacing:0.03em;transition:all 0.2s;
+}
+.btn-outline:hover{border-color:var(--ink3);color:var(--ink)}
+.hero-right{display:flex;flex-direction:column;gap:1px}
+
+/* STREAM VIZ */
+.stream-viz{
+  background:var(--ink);
+  border-radius:6px;
+  overflow:hidden;
+  font-family:var(--mono);
+  font-size:12px;
+}
+.viz-header{
+  background:#242220;
+  padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.viz-title{color:rgba(255,255,255,0.35);font-size:11px;letter-spacing:0.08em;text-transform:uppercase}
+.viz-live{
+  display:flex;align-items:center;gap:6px;
+  font-size:10px;color:#5dca8a;letter-spacing:0.06em;
+}
+.live-dot{width:5px;height:5px;border-radius:50%;background:#5dca8a;animation:livepulse 1.5s ease-in-out infinite}
+@keyframes livepulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.viz-body{padding:1.25rem;display:flex;flex-direction:column;gap:0}
+.event-row{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  animation:eventIn 0.4s ease forwards;
+  opacity:0;
+}
+@keyframes eventIn{to{opacity:1}}
+.event-row:nth-child(1){animation-delay:0.3s}
+.event-row:nth-child(2){animation-delay:0.8s}
+.event-row:nth-child(3){animation-delay:1.4s}
+.event-row:nth-child(4){animation-delay:2.1s}
+.event-row:nth-child(5){animation-delay:2.9s}
+.event-row:last-child{border-bottom:none}
+.ev-time{color:rgba(255,255,255,0.2);font-size:10px;min-width:60px;padding-top:1px}
+.ev-type{
+  font-size:10px;font-weight:500;letter-spacing:0.04em;
+  padding:2px 8px;border-radius:2px;min-width:72px;text-align:center;
+}
+.type-token{background:rgba(200,240,96,0.12);color:#c8f060}
+.type-tool{background:rgba(109,174,214,0.12);color:#6baed6}
+.type-meta{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35)}
+.type-error{background:rgba(226,75,74,0.12);color:#e24b4a}
+.type-done{background:rgba(93,202,138,0.12);color:#5dca8a}
+.ev-data{color:rgba(255,255,255,0.5);font-size:11px;line-height:1.5}
+.ev-data span{color:rgba(255,255,255,0.25)}
+
+/* COMPARISON */
+.compare{
+  padding:6rem 4rem;
+  border-top:1px solid var(--rule);
+}
+.compare-inner{max-width:1200px;margin:0 auto}
+.compare-grid{
+  display:grid;grid-template-columns:1fr 80px 1fr;
+  align-items:center;gap:0;margin-top:4rem;
+}
+.compare-col{padding:3rem}
+.compare-col.left{border:1px solid var(--rule);border-radius:4px 0 0 4px;background:var(--bg2)}
+.compare-col.right{border:1px solid var(--rule);border-left:none;border-radius:0 4px 4px 0;background:var(--bg2)}
+.compare-mid{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;z-index:1;
+}
+.compare-vs{
+  font-family:var(--serif);font-size:2rem;font-style:italic;color:var(--ink4);
+  background:var(--bg);border:1px solid var(--rule);
+  width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+}
+.compare-divider{width:1px;height:60px;background:var(--rule)}
+.compare-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--ink4);margin-bottom:1.25rem;
+}
+.compare-headline{
+  font-family:var(--serif);font-size:2.2rem;font-weight:400;
+  letter-spacing:-0.02em;color:var(--ink);margin-bottom:1rem;line-height:1.2;
+}
+.compare-desc{font-size:14px;color:var(--ink3);font-weight:300;line-height:1.7}
+.compare-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.25rem}
+.tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.05em;
+  padding:4px 10px;border:1px solid var(--rule);border-radius:2px;
+  color:var(--ink3);background:var(--bg);
+}
+.tag.accent{border-color:rgba(200,74,30,0.3);color:var(--accent);background:rgba(200,74,30,0.04)}
+
+/* PRINCIPLES */
+.principles{
+  padding:6rem 4rem;
+  border-top:1px solid var(--rule);
+  background:var(--ink);
+  color:var(--bg);
+}
+.principles-inner{max-width:1200px;margin:0 auto}
+.principles .section-label{color:rgba(245,242,236,0.25)}
+.principles .section-title{color:var(--bg)}
+.principles-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.06);
+  margin-top:4rem;
+}
+.principle{
+  background:var(--ink);
+  padding:2.5rem 2rem;
+  transition:background 0.2s;
+}
+.principle:hover{background:#242220}
+.p-num{
+  font-family:var(--mono);font-size:11px;color:rgba(245,242,236,0.2);
+  letter-spacing:0.1em;margin-bottom:2rem;
+}
+.p-title{
+  font-family:var(--serif);font-size:1.4rem;font-weight:400;
+  color:var(--bg);margin-bottom:0.75rem;line-height:1.2;
+}
+.p-desc{font-size:13px;color:rgba(245,242,236,0.45);line-height:1.7;font-weight:300}
+
+/* INSTALL */
+.install{
+  padding:6rem 4rem;
+  border-top:1px solid var(--rule);
+}
+.install-inner{max-width:1200px;margin:0 auto}
+.install-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:start;margin-top:4rem;
+}
+.install-steps{display:flex;flex-direction:column;gap:0}
+.install-step{
+  display:flex;gap:1.5rem;
+  padding:1.5rem 0;
+  border-bottom:1px solid var(--rule);
+}
+.install-step:last-child{border-bottom:none}
+.step-n{
+  font-family:var(--mono);font-size:11px;color:var(--ink4);
+  min-width:24px;padding-top:2px;letter-spacing:0.05em;
+}
+.step-content{}
+.step-title{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:0.4rem;letter-spacing:-0.01em}
+.step-desc{font-size:13px;color:var(--ink3);font-weight:300;line-height:1.6}
+.code-block{
+  background:var(--ink);border-radius:4px;
+  overflow:hidden;font-family:var(--mono);
+}
+.code-head{
+  background:#242220;padding:10px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.code-lang{font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase}
+.code-copy{font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:0.05em;cursor:pointer;transition:color 0.2s}
+.code-copy:hover{color:rgba(255,255,255,0.5)}
+.code-body{padding:1.5rem;font-size:12px;line-height:2;color:rgba(255,255,255,0.5)}
+.c-kw{color:rgba(200,240,96,0.7)}
+.c-fn{color:#c8f060}
+.c-str{color:#6baed6}
+.c-cm{color:rgba(255,255,255,0.2)}
+.c-num{color:#e8a87c}
+.c-dim{color:rgba(255,255,255,0.2)}
+
+/* SECTION LABELS */
+.section-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--ink4);margin-bottom:0.75rem;
+}
+.section-title{
+  font-family:var(--serif);
+  font-size:clamp(2rem,3.5vw,3rem);
+  font-weight:400;letter-spacing:-0.03em;
+  color:var(--ink);line-height:1.1;
+}
+
+/* CTA */
+.cta{
+  padding:8rem 4rem;
+  border-top:1px solid var(--rule);
+  text-align:center;
+  background:var(--bg2);
+}
+.cta-inner{max-width:700px;margin:0 auto}
+.cta h2{
+  font-family:var(--serif);
+  font-size:clamp(2.5rem,5vw,4.2rem);
+  font-weight:400;letter-spacing:-0.03em;
+  line-height:1.08;margin-bottom:1.5rem;color:var(--ink);
+}
+.cta h2 em{font-style:italic;color:var(--ink3)}
+.cta p{font-size:16px;color:var(--ink3);font-weight:300;margin-bottom:3rem}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:1.25rem;flex-wrap:wrap}
+
+/* FOOTER */
+footer{
+  padding:2rem 4rem;
+  border-top:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-logo{font-family:var(--mono);font-size:13px;color:var(--ink4);display:flex;align-items:center;gap:10px}
+.footer-links{display:flex;gap:2rem;list-style:none}
+.footer-links a{font-size:12px;color:var(--ink4);font-weight:300;transition:color 0.2s}
+.footer-links a:hover{color:var(--ink2)}
+.footer-right{font-family:var(--mono);font-size:11px;color:var(--ink4)}
+
+/* DIVIDER */
+.full-rule{border:none;border-top:1px solid var(--rule)}
+
+/* FADE IN */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:1000px){
+  nav{padding:1rem 1.5rem}
+  .nav-right .nav-link{display:none}
+  .hero{grid-template-columns:1fr;padding:8rem 1.5rem 4rem;gap:3rem}
+  .hero-right{display:none}
+  .compare-grid{grid-template-columns:1fr;gap:0}
+  .compare-col.left{border-radius:4px 4px 0 0;border-bottom:none}
+  .compare-col.right{border-left:1px solid var(--rule);border-radius:0 0 4px 4px;border-top:none}
+  .compare-mid{display:none}
+  .principles-grid{grid-template-columns:1fr 1fr}
+  .install-grid{grid-template-columns:1fr}
+  .compare,.principles,.install,.cta{padding:4rem 1.5rem}
+  footer{flex-direction:column;gap:1.5rem;padding:2rem 1.5rem;text-align:center}
+  .footer-right{display:none}
+}
+</style>
 </head>
-
 <body>
 
-  <div class="container">
-
-    <nav>
-
-      <div class="logo">
-        <span class="logo-icon">≈</span>
-        <span>NewStream</span>
-      </div>
-
-      <div class="nav-links">
-        <a href="#">Docs</a>
-        <a href="#">API</a>
-        <a href="#">Examples</a>
-        <a href="#">GitHub</a>
-      </div>
-
-      <a href="#" class="nav-btn">
-        Start Building
-      </a>
-
-    </nav>
-
-    <div class="hero">
-
-      <div>
-
-        <div class="badge">
-          <div class="pulse"></div>
-          Real-time telemetry for AI systems
-        </div>
-
-        <h1>
-          AI systems<br>
-          generate streams.<br>
-
-          <span class="gradient">
-            NewStream moves them.
-          </span>
-        </h1>
-
-        <p>
-          Capture tokens, tool calls, reasoning steps, errors, completions,
-          and agent events in real time. Stream them live, replay them later,
-          and build on top of durable AI telemetry.
-        </p>
-
-        <div class="hero-buttons">
-
-          <a href="#" class="primary-btn">
-            Start Sending Events
-          </a>
-
-          <a href="#" class="secondary-btn">
-            Read Documentation
-          </a>
-
-        </div>
-
-      </div>
-
-      <div class="stream-card">
-
-        <div class="stream-top">
-
-          <div class="live-dot"></div>
-
-          <div class="live-label">
-            LIVE
-          </div>
-
-          <div class="session">
-            session_23841
-          </div>
-
-        </div>
-
-        <div class="stream-body">
-
-          <div>
-            <span class="gray">12:01:01</span>
-            <span class="purple">metadata</span>
-            customer_id: acme
-          </div>
-
-          <div>
-            <span class="gray">12:01:02</span>
-            <span class="green">token</span>
-            Hello
-          </div>
-
-          <div>
-            <span class="gray">12:01:03</span>
-            <span class="yellow">tool_call</span>
-            threat_search
-          </div>
-
-          <div>
-            <span class="gray">12:01:03</span>
-            <span class="blue">tool_result</span>
-            results: 12
-          </div>
-
-          <div>
-            <span class="gray">12:01:04</span>
-            <span class="green">reasoning</span>
-            analyzing IOC relationships...
-          </div>
-
-          <div>
-            <span class="gray">12:01:05</span>
-            <span class="red">error</span>
-            rate limit hit
-          </div>
-
-          <div>
-            <span class="gray">12:01:06</span>
-            <span class="purple">done</span>
-            total_tokens: 352
-          </div>
-
-        </div>
-
-      </div>
-
+<nav>
+  <div class="nav-logo">
+    <div class="logo-stream">
+      <div class="stream-bar"></div>
+      <div class="stream-bar"></div>
+      <div class="stream-bar"></div>
+      <div class="stream-bar"></div>
+      <div class="stream-bar"></div>
     </div>
+    newstream
+  </div>
+  <div class="nav-right">
+    <a href="#how" class="nav-link">how it works</a>
+    <a href="#install" class="nav-link">install</a>
+    <a href="https://github.com/cloudstr3am/newstream" class="nav-link">github</a>
+    <a href="#" class="nav-cta">get access</a>
+  </div>
+</nav>
 
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">infrastructure for moving data</div>
+    <h1 class="hero-h1">
+      What S3 is<br>
+      to static data,<br>
+      <em>NewStream is</em><br>
+      to moving data.
+    </h1>
+    <p class="hero-sub">
+      S3 stores files. NewStream stores <strong>streams</strong> — ordered, durable, replayable sequences of events. Built for AI sessions, agent traces, and any data that flows.
+    </p>
+    <div class="hero-actions">
+      <a href="#install" class="btn-primary">get started</a>
+      <a href="https://github.com/cloudstr3am/newstream" class="btn-outline">view on github</a>
+    </div>
   </div>
 
-  <div class="big-section">
-
-    <div class="container">
-
-      <div class="big-title">
-        Replay any AI session.<br>
-        Watch agents live.
+  <div class="hero-right">
+    <div class="stream-viz">
+      <div class="viz-header">
+        <span class="viz-title">session / user-4821-1749290400</span>
+        <span class="viz-live"><span class="live-dot"></span>live</span>
       </div>
-
-      <div class="big-desc">
-        Every AI session becomes a durable event stream.
-        Replay runs exactly as they happened, inspect tool calls,
-        stream live execution events, and debug production AI systems in real time.
+      <div class="viz-body">
+        <div class="event-row">
+          <span class="ev-time">17:03:40</span>
+          <span class="ev-type type-meta">metadata</span>
+          <span class="ev-data"><span>user_id:</span> 4821 &nbsp;<span>model:</span> gpt-4o</span>
+        </div>
+        <div class="event-row">
+          <span class="ev-time">17:03:41</span>
+          <span class="ev-type type-token">token</span>
+          <span class="ev-data">"Analyzing threat vectors..." <span>45ms</span></span>
+        </div>
+        <div class="event-row">
+          <span class="ev-time">17:03:42</span>
+          <span class="ev-type type-tool">tool_call</span>
+          <span class="ev-data"><span>fn:</span> threat_search &nbsp;<span>query:</span> "ransomware"</span>
+        </div>
+        <div class="event-row">
+          <span class="ev-time">17:03:44</span>
+          <span class="ev-type type-token">token</span>
+          <span class="ev-data">"Found 12 indicators of..." <span>38ms</span></span>
+        </div>
+        <div class="event-row">
+          <span class="ev-time">17:03:45</span>
+          <span class="ev-type type-done">done</span>
+          <span class="ev-data"><span>tokens:</span> 347 &nbsp;<span>total:</span> 4.2s</span>
+        </div>
       </div>
-
     </div>
-
   </div>
+</section>
 
-  <section>
+<section class="compare reveal" id="how">
+  <div class="compare-inner">
+    <div class="section-label">the analogy</div>
+    <h2 class="section-title">Two primitives.<br>One for rest, one for motion.</h2>
 
-    <div class="container">
-
-      <h2 class="section-title">
-        Built for streaming AI systems
-      </h2>
-
-      <p class="section-subtitle">
-        NewStream is designed for agentic workflows, autonomous systems,
-        and applications generating massive volumes of AI telemetry.
-      </p>
-
-      <div class="grid">
-
-        <div class="card">
-
-          <div class="icon">
-            ▶
-          </div>
-
-          <h3>
-            Replay Sessions
-          </h3>
-
-          <p>
-            Reconstruct complete AI runs step by step exactly as they happened in production.
-          </p>
-
+    <div class="compare-grid">
+      <div class="compare-col left">
+        <div class="compare-label">Amazon S3</div>
+        <div class="compare-headline">Files at rest</div>
+        <div class="compare-desc">
+          Objects. Buckets. Put, get, delete. S3 gave the world a universal primitive for storing static data — images, documents, backups, archives.
         </div>
-
-        <div class="card">
-
-          <div class="icon">
-            ◉
-          </div>
-
-          <h3>
-            Live Streams
-          </h3>
-
-          <p>
-            Watch AI execution events stream live while agents think, call tools, and respond.
-          </p>
-
+        <div class="compare-tags">
+          <span class="tag">files</span>
+          <span class="tag">objects</span>
+          <span class="tag">static</span>
+          <span class="tag">put / get</span>
+          <span class="tag">at rest</span>
         </div>
-
-        <div class="card">
-
-          <div class="icon">
-            ⌘
-          </div>
-
-          <h3>
-            Debug Faster
-          </h3>
-
-          <p>
-            Find latency spikes, broken tools, failed reasoning paths, and production errors instantly.
-          </p>
-
-        </div>
-
-        <div class="card">
-
-          <div class="icon">
-            ⬢
-          </div>
-
-          <h3>
-            Durable Telemetry
-          </h3>
-
-          <p>
-            Persist AI execution data for monitoring, analytics, audits, and downstream pipelines.
-          </p>
-
-        </div>
-
       </div>
 
+      <div class="compare-mid">
+        <div class="compare-divider"></div>
+        <div class="compare-vs">vs</div>
+        <div class="compare-divider"></div>
+      </div>
+
+      <div class="compare-col right">
+        <div class="compare-label">NewStream</div>
+        <div class="compare-headline">Data in motion</div>
+        <div class="compare-desc">
+          Streams. Sessions. Append, read, replay. NewStream gives you a universal primitive for moving data — AI events, agent traces, sensor readings, anything that flows over time.
+        </div>
+        <div class="compare-tags">
+          <span class="tag accent">streams</span>
+          <span class="tag accent">events</span>
+          <span class="tag accent">ordered</span>
+          <span class="tag accent">append / replay</span>
+          <span class="tag accent">in motion</span>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-  </section>
+<section class="principles reveal">
+  <div class="principles-inner">
+    <div class="section-label" style="color:rgba(245,242,236,0.25)">design principles</div>
+    <h2 class="section-title" style="color:var(--bg)">Four properties<br>that matter.</h2>
+    <div class="principles-grid">
+      <div class="principle">
+        <div class="p-num">01</div>
+        <div class="p-title">Ordered</div>
+        <div class="p-desc">Every event has a sequence number. Order is guaranteed. You always know what happened before what.</div>
+      </div>
+      <div class="principle">
+        <div class="p-num">02</div>
+        <div class="p-title">Durable</div>
+        <div class="p-desc">Append once, read forever. Nothing expires. Every session from day one is replayable on demand.</div>
+      </div>
+      <div class="principle">
+        <div class="p-num">03</div>
+        <div class="p-title">Live</div>
+        <div class="p-desc">Tail any stream in real time. Watch sessions as they happen. Sub-second latency from write to read.</div>
+      </div>
+      <div class="principle">
+        <div class="p-num">04</div>
+        <div class="p-title">Simple</div>
+        <div class="p-desc">Three endpoints. One HTTP POST to write. One GET to read. No SDK required. Any language, any stack.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <section>
+<section class="install reveal" id="install">
+  <div class="install-inner">
+    <div class="section-label">get started</div>
+    <h2 class="section-title">Running in<br>two minutes.</h2>
 
-    <div class="container">
-
-      <h2 class="section-title">
-        Just send events
-      </h2>
-
-      <p class="section-subtitle">
-        No SDK required. No complicated setup.
-        NewStream works with simple HTTP requests.
-      </p>
-
-      <div class="code-wrap">
-
-        <div class="code-top">
-          POST /sessions/demo/events
+    <div class="install-grid">
+      <div class="install-steps">
+        <div class="install-step">
+          <span class="step-n">01</span>
+          <div class="step-content">
+            <div class="step-title">Install the SDK</div>
+            <div class="step-desc">One package, no native dependencies. Or skip it entirely and use raw HTTP.</div>
+          </div>
         </div>
-
-        <div class="code">
-curl -X POST https://newstream-production.up.railway.app/sessions/demo/events \<br><br>
-
--H "Content-Type: application/json" \<br>
--H "x-api-key: YOUR_API_KEY" \<br><br>
-
--d '{<br>
-&nbsp;&nbsp;"type":"token",<br>
-&nbsp;&nbsp;"text":"hello world",<br>
-&nbsp;&nbsp;"model":"gpt-4"<br>
-}'
+        <div class="install-step">
+          <span class="step-n">02</span>
+          <div class="step-content">
+            <div class="step-title">Create a session</div>
+            <div class="step-desc">One session per user conversation, agent run, or data flow. Use your own IDs.</div>
+          </div>
         </div>
-
+        <div class="install-step">
+          <span class="step-n">03</span>
+          <div class="step-content">
+            <div class="step-title">Append events</div>
+            <div class="step-desc">Send tokens, tool calls, errors, metadata — anything that happens, as it happens.</div>
+          </div>
+        </div>
+        <div class="install-step">
+          <span class="step-n">04</span>
+          <div class="step-content">
+            <div class="step-title">Read live or replay</div>
+            <div class="step-desc">Tail a live session or replay any past session from sequence 0. Both are one GET request.</div>
+          </div>
+        </div>
       </div>
 
+      <div class="code-block">
+        <div class="code-head">
+          <span class="code-lang">python</span>
+          <span class="code-copy" onclick="this.textContent='copied';setTimeout(()=>this.textContent='copy',1500)">copy</span>
+        </div>
+        <div class="code-body">
+<span class="c-cm"># install</span>
+<span class="c-dim">pip install newstream</span>
+&nbsp;
+<span class="c-kw">from</span> <span class="c-fn">newstream</span> <span class="c-kw">import</span> NewStream
+&nbsp;
+<span class="c-cm"># one session per AI run</span>
+stream <span class="c-dim">=</span> NewStream(
+&nbsp;&nbsp;base_url<span class="c-dim">=</span><span class="c-str">"https://api.newstream.dev"</span>,
+&nbsp;&nbsp;api_key<span class="c-dim">=</span><span class="c-str">"sk-your-key"</span>,
+&nbsp;&nbsp;session_id<span class="c-dim">=</span><span class="c-str">f"user-{user_id}"</span>
+)
+&nbsp;
+<span class="c-cm"># append as events happen</span>
+stream.<span class="c-fn">token</span>(<span class="c-str">"Hello"</span>, model<span class="c-dim">=</span><span class="c-str">"gpt-4o"</span>)
+stream.<span class="c-fn">tool_call</span>(<span class="c-str">"search"</span>, input, output)
+stream.<span class="c-fn">error</span>(<span class="c-str">"rate limit"</span>)
+stream.<span class="c-fn">done</span>(tokens<span class="c-dim">=</span><span class="c-num">347</span>)
+&nbsp;
+<span class="c-cm"># or raw HTTP — no SDK needed</span>
+<span class="c-cm"># POST /sessions/{id}/events</span>
+<span class="c-cm"># GET  /sessions/{id}/live</span>
+<span class="c-cm"># GET  /sessions/{id}/replay</span>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-  </section>
-
-  <section>
-
-    <div class="container">
-
-      <div class="cta">
-
-        <h2>
-          The telemetry backbone<br>
-          for AI systems.
-        </h2>
-
-        <p>
-          Capture live AI execution streams, replay sessions,
-          monitor agents in production, and build on top of durable AI telemetry.
-        </p>
-
-        <a href="#" class="cta-btn">
-          Start Building with NewStream
-        </a>
-
-      </div>
-
+<section class="cta reveal">
+  <div class="cta-inner">
+    <h2>The storage layer<br>your AI <em>deserves.</em></h2>
+    <p>Stop losing AI session data to void. Start streaming, replaying, and understanding every decision your AI makes.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-primary">get access</a>
+      <a href="https://github.com/cloudstr3am/newstream" class="btn-outline">read the docs</a>
     </div>
+  </div>
+</section>
 
-  </section>
-
-  <footer>
-
-    <div class="container footer">
-
-      <div>
-        NewStream — Replayable telemetry for AI systems.
-      </div>
-
-      <div>
-        Docs · API · GitHub
-      </div>
-
+<footer>
+  <div class="footer-logo">
+    <div class="logo-stream" style="gap:2px">
+      <div class="stream-bar" style="animation-play-state:paused;opacity:0.3;height:8px"></div>
+      <div class="stream-bar" style="animation-play-state:paused;opacity:0.3;height:12px"></div>
+      <div class="stream-bar" style="animation-play-state:paused;opacity:0.3;height:9px"></div>
     </div>
+    newstream
+  </div>
+  <ul class="footer-links">
+    <li><a href="https://github.com/cloudstr3am/newstream">github</a></li>
+    <li><a href="#">docs</a></li>
+    <li><a href="#">contact</a></li>
+  </ul>
+  <div class="footer-right">infrastructure for moving data</div>
+</footer>
 
-  </footer>
-
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
-```
