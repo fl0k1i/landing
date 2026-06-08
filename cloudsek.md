@@ -1,6 +1,6 @@
 # NewStream — CloudSek Integration Guide
 
-**Backend:** https://api.maskllm.com/
+**API endpoint:** https://api.maskllm.com/
 **API Key:** `cloudsek-ceb2f11ae252633ef7e45634dd055672`
 
 ---
