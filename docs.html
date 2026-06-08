@@ -1,0 +1,450 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewStream — CloudSek Integration Guide</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #0b0f17;
+      color: #f5f7fa;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 24px;
+    }
+
+    .hero {
+      margin-bottom: 60px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      color: #b4c2d3;
+    }
+
+    h1 {
+      font-size: 58px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: #9fb0c5;
+      font-size: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 40px;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 30px;
+      height: fit-content;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      padding-right: 24px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #8da2ba;
+      text-decoration: none;
+      padding: 10px 0;
+      transition: 0.2s ease;
+      font-size: 15px;
+    }
+
+    .sidebar a:hover {
+      color: white;
+    }
+
+    .content section {
+      margin-bottom: 70px;
+    }
+
+    h2 {
+      font-size: 34px;
+      margin-bottom: 18px;
+      letter-spacing: -1px;
+    }
+
+    h3 {
+      margin-top: 30px;
+      margin-bottom: 14px;
+      font-size: 22px;
+    }
+
+    p {
+      color: #b7c4d3;
+      margin-bottom: 18px;
+    }
+
+    code {
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    pre {
+      background: #111827;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 22px;
+      border-radius: 16px;
+      overflow-x: auto;
+      margin-top: 18px;
+      margin-bottom: 28px;
+    }
+
+    pre code {
+      font-size: 14px;
+      color: #d7e3f4;
+    }
+
+    .endpoint {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 14px 18px;
+      border-radius: 14px;
+      margin-top: 14px;
+      margin-bottom: 22px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 14px;
+      color: #d8e2ef;
+    }
+
+    .method {
+      background: #2563eb;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    th {
+      background: rgba(255,255,255,0.04);
+      text-align: left;
+      padding: 16px;
+      font-size: 14px;
+      color: #d8e2ef;
+    }
+
+    td {
+      padding: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: #9fb0c5;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 24px;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+
+    .footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #7d91a7;
+      font-size: 14px;
+    }
+
+    @media(max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="hero">
+      <div class="badge">NewStream × CloudSek</div>
+
+      <h1>LLM telemetry,<br>replay & live AI sessions.</h1>
+
+      <p>
+        Every token, tool call, error, completion, and AI interaction —
+        streamed in real time, replayable forever, and searchable across your customer sessions.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <aside class="sidebar">
+        <a href="#overview">Overview</a>
+        <a href="#send-event">Send Event</a>
+        <a href="#python">Python</a>
+        <a href="#node">Node.js</a>
+        <a href="#example">Full Example</a>
+        <a href="#sessions">Sessions</a>
+        <a href="#events">Event Types</a>
+        <a href="#test">Test API</a>
+      </aside>
+
+      <main class="content">
+
+        <section id="overview">
+          <h2>Overview</h2>
+
+          <div class="card">
+            <p><strong>Backend:</strong> https://api.maskllm.com/</p>
+            <p><strong>API Key:</strong> cloudsek-ceb2f11ae252633ef7e45634dd055672</p>
+          </div>
+
+          <p>
+            NewStream captures every AI interaction generated by your customers —
+            including tokens, tool calls, latency, errors, and completions —
+            then stores them durably for replay, debugging, analytics, and real-time monitoring.
+          </p>
+
+          <p>
+            No SDK required. No infrastructure needed.
+            Just send HTTP POST requests and NewStream handles the rest.
+          </p>
+        </section>
+
+        <section id="send-event">
+          <h2>Send an Event</h2>
+
+          <div class="endpoint">
+            <span class="method">POST</span>
+            /sessions/{session_id}/events
+          </div>
+
+<pre><code>curl -X POST https://api.maskllm.com/sessions/{session_id}/events \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: cloudsek-ceb2f11ae252633ef7e45634dd055672" \
+  -d '{"type": "token", "text": "Hello", "model": "gpt-4", "latency_ms": 45}'</code></pre>
+
+          <p>
+            Replace <code>{session_id}</code> with your own customer or conversation identifier.
+          </p>
+        </section>
+
+        <section id="python">
+          <h2>Python Integration</h2>
+
+<pre><code>import requests
+import time
+
+NEWSTREAM_URL = "https://api.maskllm.com"
+NEWSTREAM_KEY = "cloudsek-ceb2f11ae252633ef7e45634dd055672"
+
+def track(session_id: str, event_type: str, data: dict):
+    requests.post(
+        f"{NEWSTREAM_URL}/sessions/{session_id}/events",
+        headers={
+            "Content-Type": "application/json",
+            "x-api-key": NEWSTREAM_KEY
+        },
+        json={
+            "type": event_type,
+            "session_id": session_id,
+            "timestamp": int(time.time() * 1000),
+            **data
+        },
+        timeout=5
+    )</code></pre>
+
+<pre><code>session_id = "customer-123-session-456"
+
+track(session_id, "metadata", {"customer_id": "123"})
+track(session_id, "token", {"text": "Hello"})
+track(session_id, "tool_call", {"tool": "threat_search"})
+track(session_id, "error", {"message": "Rate limit hit"})
+track(session_id, "done", {"total_tokens": 350})</code></pre>
+
+        </section>
+
+        <section id="node">
+          <h2>Node.js Integration</h2>
+
+<pre><code>const NEWSTREAM_URL = "https://api.maskllm.com/";
+const NEWSTREAM_KEY = "cloudsek-ceb2f11ae252633ef7e45634dd055672";
+
+async function track(sessionId, eventType, data) {
+    await fetch(`${NEWSTREAM_URL}/sessions/${sessionId}/events`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": NEWSTREAM_KEY
+        },
+        body: JSON.stringify({
+            type: eventType,
+            session_id: sessionId,
+            timestamp: Date.now(),
+            ...data
+        })
+    });
+}</code></pre>
+
+        </section>
+
+        <section id="example">
+          <h2>Full Gemini Example</h2>
+
+<pre><code>track("metadata", {
+    "provider": "google",
+    "model": "gemini-2.5-flash"
+})
+
+track("token", {
+    "text": text,
+    "model": "gemini-2.5-flash",
+    "latency_ms": 5575
+})
+
+track("done", {
+    "total_tokens": 8,
+    "total_latency_ms": 6522
+})</code></pre>
+
+          <p>
+            NewStream records every event in sequence, allowing complete replay of customer AI sessions.
+          </p>
+
+        </section>
+
+        <section id="sessions">
+          <h2>Sessions API</h2>
+
+          <h3>List Sessions</h3>
+
+<pre><code>curl https://api.maskllm.com/sessions</code></pre>
+
+          <h3>Replay Session</h3>
+
+<pre><code>curl https://api.maskllm.com/sessions/{session_id}/replay</code></pre>
+
+          <h3>Live Session Stream</h3>
+
+<pre><code>curl https://api.maskllm.com/sessions/{session_id}/live</code></pre>
+
+          <p>
+            Live endpoints stream events over SSE in real time while your customer session runs.
+          </p>
+
+        </section>
+
+        <section id="events">
+          <h2>Event Types</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>When to Send</th>
+                <th>Fields</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td><code>token</code></td>
+                <td>AI output token or completion</td>
+                <td>text, model, latency_ms</td>
+              </tr>
+
+              <tr>
+                <td><code>tool_call</code></td>
+                <td>Tool/function execution</td>
+                <td>tool, input, output</td>
+              </tr>
+
+              <tr>
+                <td><code>error</code></td>
+                <td>Any failure or exception</td>
+                <td>message, error_type</td>
+              </tr>
+
+              <tr>
+                <td><code>metadata</code></td>
+                <td>Customer/session context</td>
+                <td>Any key-value data</td>
+              </tr>
+
+              <tr>
+                <td><code>done</code></td>
+                <td>Session completion</td>
+                <td>total_tokens, total_latency_ms</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </section>
+
+        <section id="test">
+          <h2>Test It Right Now</h2>
+
+<pre><code>curl -X POST https://api.maskllm.com/sessions/cloudsek-test/events \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: cloudsek-ceb2f11ae252633ef7e45634dd055672" \
+  -d '{"type": "token", "text": "test event", "model": "gpt-4"}'
+
+curl https://api.maskllm.com/sessions/cloudsek-test/replay</code></pre>
+
+          <p>
+            The replay endpoint should immediately return your streamed event history.
+          </p>
+        </section>
+
+        <div class="footer">
+          NewStream — Real-time telemetry infrastructure for AI applications.
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+</body>
+</html>
+```
