@@ -5,360 +5,275 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MaskLLM — Be the Answer AI Recommends</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --white: #ffffff;
-  --off: #f7f6fb;
-  --ink: #0f0d1a;
-  --ink-mid: #3a3652;
-  --ink-muted: #7d7a95;
-  --purple: #6c5ce7;
-  --purple-light: #a29bfe;
-  --purple-pale: #ede9ff;
-  --border: #e8e5f0;
-  --green: #00b894;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--white);
-  color: var(--ink);
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:#0a0520;
+  color:#fff;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
 
 /* ── NAV ── */
-nav {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px; height: 60px;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:64px;
+  background:rgba(10,5,32,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
 }
-.logo {
-  font-weight: 700; font-size: 17px; letter-spacing: -0.5px;
-  color: var(--ink); text-decoration: none;
+.logo{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;font-size:18px;letter-spacing:-0.5px;
+  color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;
 }
-.logo span { color: var(--purple); }
-.nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a {
-  color: var(--ink-muted); text-decoration: none;
-  font-size: 13.5px; font-weight: 500; transition: color 0.15s;
+.logo img{height:28px;width:auto}
+.nav-cta{
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  color:#fff;padding:9px 22px;border-radius:40px;
+  font-size:13px;font-weight:600;text-decoration:none;
+  transition:opacity .15s;
 }
-.nav-links a:hover { color: var(--ink); }
-.nav-cta {
-  background: var(--ink) !important; color: var(--white) !important;
-  padding: 8px 18px; border-radius: 8px;
-  font-size: 13px !important; font-weight: 600 !important;
-  transition: opacity 0.15s !important;
-}
-.nav-cta:hover { opacity: 0.82 !important; }
+.nav-cta:hover{opacity:.85}
 
 /* ── HERO ── */
-.hero {
-  padding: 88px 48px 72px;
-  max-width: 1080px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 48px; align-items: center;
-}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--purple-pale); color: var(--purple);
-  font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
-  padding: 4px 12px; border-radius: 20px; margin-bottom: 22px;
-  font-family: 'DM Mono', monospace;
-}
-.hero-badge::before { content: '●'; font-size: 7px; }
-h1 {
-  font-size: 52px; font-weight: 700; line-height: 1.06;
-  letter-spacing: -2.5px; margin-bottom: 18px;
-}
-h1 em {
-  font-style: normal; color: var(--purple);
-}
-.hero-sub {
-  font-size: 16px; color: var(--ink-mid); line-height: 1.7;
-  max-width: 400px; margin-bottom: 32px;
-}
-.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 11px 24px; border-radius: 8px;
-  font-family: 'DM Sans', sans-serif; font-weight: 600;
-  font-size: 14px; text-decoration: none; transition: all 0.15s;
-  cursor: pointer; border: none;
-}
-.btn-purple { background: var(--purple); color: var(--white); }
-.btn-purple:hover { background: #5a4bd1; }
-.btn-outline {
-  background: transparent; color: var(--ink-mid);
-  border: 1.5px solid var(--border);
-}
-.btn-outline:hover { border-color: var(--purple-light); color: var(--purple); }
-
-/* hero dashboard mockup */
-.hero-visual {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 32px rgba(108,92,231,0.08), 0 1px 4px rgba(0,0,0,0.04);
-}
-.dash-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 20px;
-}
-.dash-title { font-size: 13px; font-weight: 600; color: var(--ink); }
-.dash-badge {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  color: var(--green); background: rgba(0,184,148,0.1);
-  padding: 3px 8px; border-radius: 4px; font-weight: 500;
-}
-.dash-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-.stat-box {
-  background: var(--off); border-radius: 10px; padding: 14px 16px;
-}
-.stat-val {
-  font-size: 26px; font-weight: 700; letter-spacing: -1px;
-  color: var(--ink); line-height: 1;
-  display: flex; align-items: baseline; gap: 6px;
-}
-.stat-up { font-size: 11px; font-weight: 600; color: var(--green); font-family: 'DM Mono', monospace; }
-.stat-lbl { font-size: 11px; color: var(--ink-muted); margin-top: 3px; }
-.dash-chart { height: 60px; position: relative; margin-bottom: 20px; }
-.dash-chart svg { width: 100%; height: 100%; }
-.mention-rows { display: flex; flex-direction: column; gap: 8px; }
-.mention-row { display: flex; align-items: center; gap: 10px; }
-.mention-name {
-  font-size: 12px; font-weight: 500; color: var(--ink-mid);
-  width: 72px; flex-shrink: 0;
-  display: flex; align-items: center; gap: 5px;
-}
-.mention-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.mention-bar-wrap { flex: 1; background: var(--off); border-radius: 4px; height: 6px; overflow: hidden; }
-.mention-bar { height: 100%; border-radius: 4px; background: var(--purple-light); }
-.mention-bar.top { background: var(--purple); }
-.mention-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-muted); width: 36px; text-align: right; }
-
-/* ── LOGOS STRIP ── */
-.strip {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 18px 48px;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  flex-wrap: wrap;
-}
-.strip-label {
-  font-size: 11px; font-family: 'DM Mono', monospace;
-  color: var(--ink-muted); letter-spacing: 1px; margin-right: 8px;
-}
-.ai-chip {
-  display: flex; align-items: center; gap: 6px;
-  padding: 6px 14px; border: 1px solid var(--border);
-  border-radius: 20px; font-size: 12px; font-weight: 500;
-  color: var(--ink-mid); background: var(--white);
-}
-.ai-chip-dot { width: 6px; height: 6px; border-radius: 50%; }
-
-/* ── WHAT IS GEO ── */
-.geo-what { background: var(--off); padding: 80px 48px; }
-.geo-what-inner { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
-.eyebrow {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--purple); margin-bottom: 14px;
-}
-h2 {
-  font-size: 36px; font-weight: 700; letter-spacing: -1.5px;
-  line-height: 1.1; margin-bottom: 14px;
-}
-.body-text { font-size: 15px; color: var(--ink-mid); line-height: 1.75; }
-.queries-block { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }
-.query-pill {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 8px; padding: 13px 16px;
-  font-size: 13px; color: var(--ink-mid); line-height: 1.4;
-  display: flex; align-items: flex-start; gap: 8px;
-  transition: border-color 0.15s, color 0.15s;
-}
-.query-pill:hover { border-color: var(--purple-light); color: var(--ink); }
-.q-mark { color: var(--purple); font-size: 16px; line-height: 1; flex-shrink: 0; font-weight: 700; }
-.callout {
-  margin-top: 14px;
-  padding: 14px 18px; background: var(--purple-pale);
-  border-radius: 8px; font-size: 13px; color: var(--ink-mid); line-height: 1.6;
-}
-.callout strong { color: var(--ink); }
-
-/* ── SERVICES ── */
-.services { padding: 80px 48px; max-width: 1080px; margin: 0 auto; }
-.services-grid {
-  margin-top: 40px; display: grid;
-  grid-template-columns: repeat(2, 1fr); gap: 16px;
-}
-.svc {
-  padding: 28px; background: var(--white);
-  border: 1px solid var(--border); border-radius: 12px;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-.svc:hover {
-  border-color: var(--purple-light);
-  box-shadow: 0 4px 24px rgba(108,92,231,0.06);
-}
-.svc-icon {
-  width: 36px; height: 36px; background: var(--purple-pale);
-  border-radius: 8px; display: flex; align-items: center;
-  justify-content: center; margin-bottom: 14px;
-}
-.svc-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
-.svc-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.65; margin-bottom: 14px; }
-.tags { display: flex; flex-wrap: wrap; gap: 5px; }
-.tag {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  padding: 2px 8px; background: var(--off);
-  border-radius: 4px; color: var(--ink-muted); border: 1px solid var(--border);
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;align-items:stretch;
+  overflow:hidden;
 }
 
-/* ── STATS ── */
-.stats-band { background: var(--ink); padding: 64px 48px; }
-.stats-inner { max-width: 1080px; margin: 0 auto; }
-.stats-eyebrow {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--purple-light); margin-bottom: 10px;
+/* LEFT: gradient panel */
+.hero-left{
+  position:relative;
+  background:linear-gradient(145deg,#1e1060 0%,#3b1fa8 40%,#5b21b6 70%,#7c3aed 100%);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 56px 80px 64px;
+  overflow:hidden;
 }
-.stats-head { font-size: 32px; font-weight: 700; color: var(--white); letter-spacing: -1.2px; margin-bottom: 40px; }
-.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; }
-.stat-cell { padding: 28px 24px; background: rgba(255,255,255,0.025); }
-.stat-number {
-  font-size: 44px; font-weight: 700; letter-spacing: -2.5px;
-  color: var(--purple-light); line-height: 1; margin-bottom: 6px;
+.hero-left::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 20% 50%,rgba(139,92,246,.35) 0%,transparent 70%);
 }
-.stat-desc { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.5; }
-.stats-insights { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
-.insight {
-  padding: 20px; border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 10px; background: rgba(255,255,255,0.02);
-}
-.insight h4 { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
-.insight p { font-size: 12.5px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+.hero-left>*{position:relative;z-index:1}
 
-/* ── WHO ── */
-.who { padding: 80px 48px; background: var(--off); }
-.who-inner { max-width: 1080px; margin: 0 auto; }
-.who-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 40px; }
-.who-card {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 12px; padding: 24px 20px;
-  transition: border-color 0.15s, transform 0.15s;
+/* floating orbs */
+.orb{
+  position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;
 }
-.who-card:hover { border-color: var(--purple-light); transform: translateY(-2px); }
-.who-icon { margin-bottom: 12px; }
-.who-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-.who-desc { font-size: 12.5px; color: var(--ink-muted); line-height: 1.6; }
+.orb1{width:300px;height:300px;background:rgba(167,139,250,.25);top:-80px;right:-80px}
+.orb2{width:200px;height:200px;background:rgba(99,102,241,.3);bottom:60px;left:30px}
 
-/* ── PROCESS ── */
-.process { padding: 80px 48px; max-width: 1080px; margin: 0 auto; }
-.process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: 40px; position: relative; }
-.process-steps::after {
-  content: ''; position: absolute;
-  top: 20px; left: calc(12.5% + 10px); right: calc(12.5% + 10px);
-  height: 1px; background: linear-gradient(90deg, var(--purple) 0%, var(--purple-light) 100%);
-  opacity: 0.25;
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.85);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  padding:5px 14px;border-radius:40px;margin-bottom:24px;width:fit-content;
 }
-.step { text-align: center; padding: 0 16px; }
-.step-num {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--white); border: 1.5px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
-  font-family: 'DM Mono', monospace; font-size: 13px;
-  font-weight: 500; color: var(--purple);
-  position: relative; z-index: 1;
-  transition: background 0.15s, border-color 0.15s;
-}
-.step:hover .step-num { background: var(--purple); border-color: var(--purple); color: var(--white); }
-.step-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-.step-desc { font-size: 12.5px; color: var(--ink-muted); line-height: 1.6; }
+.hero-badge::before{content:'●';font-size:6px;color:#a78bfa}
 
-/* ── FAQ ── */
-.faq { padding: 80px 48px; background: var(--off); }
-.faq-inner { max-width: 1080px; margin: 0 auto; }
-.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 40px; }
-.faq-item {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 12px; padding: 24px; transition: border-color 0.15s;
+h1.hero-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:52px;font-weight:700;line-height:1.05;letter-spacing:-2px;
+  margin-bottom:20px;
 }
-.faq-item:hover { border-color: var(--purple-light); }
-.faq-q {
-  font-size: 14px; font-weight: 600; margin-bottom: 8px;
-  display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+h1.hero-title em{
+  font-style:normal;
+  background:linear-gradient(90deg,#c4b5fd,#e0e7ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.faq-q::after { content: '+'; color: var(--purple); font-size: 18px; line-height: 1.1; flex-shrink: 0; }
-.faq-a { font-size: 13px; color: var(--ink-muted); line-height: 1.7; }
+
+.hero-sub{
+  font-size:16px;color:rgba(255,255,255,.7);line-height:1.7;
+  max-width:380px;margin-bottom:36px;
+}
+
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:13px 28px;border-radius:40px;
+  background:#fff;color:#1e1060;
+  font-weight:700;font-size:14px;text-decoration:none;
+  transition:all .15s;
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.btn-outline-w{
+  display:inline-flex;align-items:center;
+  padding:13px 24px;border-radius:40px;
+  border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);
+  font-weight:600;font-size:14px;text-decoration:none;
+  transition:all .15s;
+}
+.btn-outline-w:hover{border-color:rgba(255,255,255,.7);color:#fff}
+
+/* AI chip strip */
+.ai-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:40px}
+.ai-chip{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:20px;padding:5px 12px;
+  font-size:11px;font-weight:500;color:rgba(255,255,255,.75);
+}
+.ai-dot{width:6px;height:6px;border-radius:50%}
+
+/* RIGHT: artwork panel */
+.hero-right{
+  background:#0a0520;
+  display:flex;align-items:center;justify-content:center;
+  padding:60px 48px;position:relative;overflow:hidden;
+}
+.hero-right::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 70% at 50% 40%,rgba(109,40,217,.18) 0%,transparent 70%);
+}
+.hero-right>*{position:relative;z-index:1}
+
+.logo-art-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  gap:32px;
+}
+.logo-art{
+  width:280px;height:auto;
+  filter:drop-shadow(0 20px 60px rgba(124,58,237,.6));
+  animation:floatY 4s ease-in-out infinite;
+}
+@keyframes floatY{
+  0%,100%{transform:translateY(0px)}
+  50%{transform:translateY(-12px)}
+}
+
+/* orbit rings */
+.orbit-ring{
+  position:absolute;border-radius:50%;border:1px solid rgba(139,92,246,.2);
+  animation:spin 20s linear infinite;pointer-events:none;
+}
+.orbit-ring:nth-child(2){width:360px;height:360px;top:50%;left:50%;transform:translate(-50%,-50%);animation-duration:25s}
+.orbit-ring:nth-child(3){width:480px;height:480px;top:50%;left:50%;transform:translate(-50%,-50%);animation-duration:35s;animation-direction:reverse}
+@keyframes spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* orbit badge */
+.orbit-badge{
+  position:absolute;
+  background:rgba(15,10,40,.9);border:1px solid rgba(139,92,246,.4);
+  border-radius:40px;padding:6px 14px;
+  font-size:11px;font-weight:600;color:#c4b5fd;
+  display:flex;align-items:center;gap:6px;
+  white-space:nowrap;
+}
+.orbit-badge.pos1{top:15%;right:5%}
+.orbit-badge.pos2{bottom:18%;left:2%}
+.orbit-badge.pos3{bottom:30%;right:8%}
+
+/* ── STATS BAND ── */
+.stats-band{
+  background:linear-gradient(135deg,#1e1060 0%,#312e81 50%,#1e1060 100%);
+  padding:72px 64px;
+}
+.stats-inner{max-width:1100px;margin:0 auto}
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:rgba(255,255,255,.05);border-radius:16px;overflow:hidden;
+}
+.stat-cell{
+  padding:40px 32px;background:rgba(255,255,255,.025);text-align:center;
+}
+.stat-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(139,92,246,.2);display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;font-size:20px;
+}
+.stat-number{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:52px;font-weight:700;letter-spacing:-2px;
+  background:linear-gradient(90deg,#c4b5fd,#818cf8);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;margin-bottom:10px;
+}
+.stat-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5;max-width:160px;margin:0 auto}
+
+/* ── PILLARS ── */
+.pillars{padding:96px 64px;max-width:1100px;margin:0 auto}
+.section-eyebrow{
+  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  color:#a78bfa;font-weight:600;margin-bottom:12px;
+}
+.section-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:40px;font-weight:700;letter-spacing:-1.5px;line-height:1.1;
+  margin-bottom:48px;color:#fff;
+}
+.pillars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden}
+.pillar{
+  background:#0f0929;padding:36px 32px;
+  transition:background .2s;
+}
+.pillar:hover{background:#130d38}
+.pillar-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;font-size:18px;
+}
+.pillar-title{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;color:#fff}
+.pillar-desc{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.7}
 
 /* ── CTA ── */
-.cta { padding: 100px 48px; text-align: center; }
-.cta-inner { max-width: 640px; margin: 0 auto; }
-.cta-inner h2 { font-size: 44px; letter-spacing: -2px; line-height: 1.08; margin-bottom: 14px; }
-.cta-inner h2 em { font-style: normal; color: var(--purple); }
-.cta-inner p { font-size: 15px; color: var(--ink-mid); line-height: 1.7; margin-bottom: 28px; }
-.cta-btns { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-.trust { display: flex; justify-content: center; gap: 24px; margin-top: 24px; flex-wrap: wrap; }
-.trust-item { font-size: 12px; color: var(--ink-muted); display: flex; align-items: center; gap: 5px; }
+.cta-section{
+  padding:100px 64px;text-align:center;
+  background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(109,40,217,.2) 0%,transparent 70%);
+}
+.cta-section h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:48px;font-weight:700;letter-spacing:-2px;line-height:1.08;
+  margin-bottom:16px;
+}
+.cta-section h2 em{
+  font-style:normal;
+  background:linear-gradient(90deg,#a78bfa,#818cf8);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.cta-section p{font-size:16px;color:rgba(255,255,255,.6);margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+.trust-strip{display:flex;justify-content:center;gap:28px;margin-top:24px;flex-wrap:wrap}
+.trust-item{font-size:12px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:6px}
+.trust-item::before{content:'✓';color:#a78bfa;font-weight:700}
 
 /* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 28px 48px;
-  display: flex; align-items: center; justify-content: space-between;
-  max-width: 1080px; margin: 0 auto;
+footer{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:24px 64px;
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:1400px;margin:0 auto;
 }
-.footer-logo { font-size: 16px; font-weight: 700; color: var(--ink); }
-.footer-logo span { color: var(--purple); }
-.footer-note { font-size: 12px; color: var(--ink-muted); }
-.footer-links { display: flex; gap: 20px; }
-.footer-links a { font-size: 12px; color: var(--ink-muted); text-decoration: none; transition: color 0.15s; }
-.footer-links a:hover { color: var(--ink); }
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-.fu { animation: fadeUp 0.45s ease both; }
-.d1 { animation-delay: 0.08s; }
-.d2 { animation-delay: 0.16s; }
-.d3 { animation-delay: 0.24s; }
+.footer-logo{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:15px;font-weight:700;color:rgba(255,255,255,.5);
+}
+.footer-logo span{color:#a78bfa}
+.footer-note{font-size:12px;color:rgba(255,255,255,.3)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:rgba(255,255,255,.7)}
 
 /* ── RESPONSIVE ── */
-@media (max-width: 860px) {
-  nav { padding: 0 20px; }
-  .nav-links { display: none; }
-  .hero { grid-template-columns: 1fr; padding: 48px 20px 40px; gap: 32px; }
-  h1 { font-size: 36px; letter-spacing: -1.5px; }
-  .strip { padding: 16px 20px; }
-  .geo-what { padding: 56px 20px; }
-  .geo-what-inner { grid-template-columns: 1fr; }
-  .services { padding: 56px 20px; }
-  .services-grid { grid-template-columns: 1fr; }
-  .stats-band { padding: 48px 20px; }
-  .stats-row { grid-template-columns: 1fr; }
-  .stats-insights { grid-template-columns: 1fr; }
-  .who { padding: 56px 20px; }
-  .who-grid { grid-template-columns: 1fr 1fr; }
-  .process { padding: 56px 20px; }
-  .process-steps { grid-template-columns: 1fr 1fr; gap: 16px; }
-  .process-steps::after { display: none; }
-  .faq { padding: 56px 20px; }
-  .faq-grid { grid-template-columns: 1fr; }
-  .cta { padding: 64px 20px; }
-  .cta-inner h2 { font-size: 32px; }
-  footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px 20px; }
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .hero-left{padding:60px 24px 60px}
+  h1.hero-title{font-size:36px}
+  .stats-band{padding:48px 20px}
+  .stats-row{grid-template-columns:1fr}
+  .pillars{padding:56px 20px}
+  .pillars-grid{grid-template-columns:1fr}
+  .cta-section{padding:64px 20px}
+  .cta-section h2{font-size:32px}
+  footer{flex-direction:column;gap:12px;text-align:center;padding:24px 20px}
 }
 </style>
 </head>
@@ -366,344 +281,138 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">mask<span>llm</span></a>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#why">Why GEO</a>
-    <a href="#who">Who We Help</a>
-    <a href="#faq">FAQ</a>
-    <a href="https://cal.com/maskllm/30min" class="nav-cta">Book an Audit</a>
-  </div>
+  <a href="#" class="logo">
+    <img src="data:image/png;base64,LOGO_PLACEHOLDER" alt="MaskLLM logo"/>
+    mask<span style="color:#a78bfa">llm</span>
+  </a>
+  <a href="https://cal.com/maskllm/30min" class="nav-cta">Book an Audit</a>
 </nav>
 
 <!-- HERO -->
-<section>
-<div class="hero">
-  <div>
-    <div class="hero-badge fu">GEO — Generative Engine Optimization</div>
-    <h1 class="fu d1">Be the <em>answer</em><br/>AI recommends.</h1>
-    <p class="hero-sub fu d2">Millions of people now discover products by asking ChatGPT, Claude, and Gemini. If your brand isn't being mentioned, you're invisible in the fastest-growing discovery channel.</p>
-    <div class="hero-actions fu d3">
-      <a href="https://cal.com/maskllm/30min" class="btn btn-purple">Book a GEO Audit</a>
-      <a href="#services" class="btn btn-outline">See our services →</a>
+<section class="hero">
+  <!-- LEFT -->
+  <div class="hero-left">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <div class="hero-badge">GEO — Generative Engine Optimization</div>
+    <h1 class="hero-title">Turn ChatGPT into<br/>your <em>#1 sales funnel</em></h1>
+    <p class="hero-sub">MaskLLM helps you turn ChatGPT and other AI tools into your #1 sales funnel — <strong style="color:#c4b5fd">within weeks</strong>. If your brand isn't in AI-generated answers, you're losing customers before they ever reach Google.</p>
+
+    <div class="hero-actions">
+      <a href="https://cal.com/maskllm/30min" class="btn-primary">Book a GEO Audit →</a>
+      <a href="#pillars" class="btn-outline-w">See our services</a>
+    </div>
+
+    <div class="ai-chips">
+      <span style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;align-self:center">Optimised for</span>
+      <div class="ai-chip"><span class="ai-dot" style="background:#10a37f"></span>ChatGPT</div>
+      <div class="ai-chip"><span class="ai-dot" style="background:#d97706"></span>Claude</div>
+      <div class="ai-chip"><span class="ai-dot" style="background:#4285f4"></span>Gemini</div>
+      <div class="ai-chip"><span class="ai-dot" style="background:#3b82f6"></span>Perplexity</div>
+      <div class="ai-chip"><span class="ai-dot" style="background:#fff"></span>Copilot</div>
     </div>
   </div>
-  <div class="hero-visual fu d2">
-    <div class="dash-header">
-      <span class="dash-title">AI Visibility Overview</span>
-      <span class="dash-badge">↑ Live</span>
-    </div>
-    <div class="dash-stats">
-      <div class="stat-box">
-        <div class="stat-val">2,842 <span class="stat-up">↑18.6%</span></div>
-        <div class="stat-lbl">Total AI Mentions</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val">3.2 <span class="stat-up">↑0.7</span></div>
-        <div class="stat-lbl">Avg. Position</div>
-      </div>
-    </div>
-    <!-- Sparkline chart -->
-    <div class="dash-chart">
-      <svg viewBox="0 0 320 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#6c5ce7" stop-opacity="0.15"/>
-            <stop offset="100%" stop-color="#6c5ce7" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <path d="M0 52 C30 48 50 42 80 38 C110 34 130 36 160 28 C190 20 210 22 240 14 C265 8 290 6 320 2" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
-        <path d="M0 52 C30 48 50 42 80 38 C110 34 130 36 160 28 C190 20 210 22 240 14 C265 8 290 6 320 2 L320 60 L0 60Z" fill="url(#g1)"/>
-      </svg>
-    </div>
-    <div style="font-size:11px; font-family:'DM Mono',monospace; color:var(--ink-muted); margin-bottom:10px; letter-spacing:0.5px;">TOP MENTIONS</div>
-    <div class="mention-rows">
-      <div class="mention-row">
-        <div class="mention-name"><span class="mention-dot" style="background:#10a37f"></span>ChatGPT</div>
-        <div class="mention-bar-wrap"><div class="mention-bar top" style="width:82%"></div></div>
-        <div class="mention-count">1,245</div>
-      </div>
-      <div class="mention-row">
-        <div class="mention-name"><span class="mention-dot" style="background:#d97706"></span>Claude</div>
-        <div class="mention-bar-wrap"><div class="mention-bar" style="width:59%"></div></div>
-        <div class="mention-count">892</div>
-      </div>
-      <div class="mention-row">
-        <div class="mention-name"><span class="mention-dot" style="background:#3b82f6"></span>Perplexity</div>
-        <div class="mention-bar-wrap"><div class="mention-bar" style="width:28%"></div></div>
-        <div class="mention-count">412</div>
-      </div>
-      <div class="mention-row">
-        <div class="mention-name"><span class="mention-dot" style="background:#8b5cf6"></span>Gemini</div>
-        <div class="mention-bar-wrap"><div class="mention-bar" style="width:19%"></div></div>
-        <div class="mention-count">293</div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
 
-<!-- STRIP -->
-<div class="strip">
-  <span class="strip-label">OPTIMIZED FOR</span>
-  <div class="ai-chip"><span class="ai-chip-dot" style="background:#10a37f"></span>ChatGPT</div>
-  <div class="ai-chip"><span class="ai-chip-dot" style="background:#d97706"></span>Claude</div>
-  <div class="ai-chip"><span class="ai-chip-dot" style="background:#4285f4"></span>Gemini</div>
-  <div class="ai-chip"><span class="ai-chip-dot" style="background:#3b82f6"></span>Perplexity</div>
-  <div class="ai-chip"><span class="ai-chip-dot" style="background:#000"></span>SearchGPT</div>
-  <div class="ai-chip"><span class="ai-chip-dot" style="background:#0078d4"></span>Copilot</div>
-</div>
+  <!-- RIGHT: logo artwork -->
+  <div class="hero-right">
+    <div class="orbit-ring"></div>
+    <div class="orbit-ring"></div>
 
-<!-- WHAT IS GEO -->
-<section class="geo-what" id="what">
-  <div class="geo-what-inner">
-    <div>
-      <div class="eyebrow">What is GEO?</div>
-      <h2>The new layer of discoverability</h2>
-      <p class="body-text">Generative Engine Optimization (GEO) improves how AI systems discover, understand, and recommend your brand — making sure you appear in the answers your future customers are already asking for.</p>
+    <div class="orbit-badge pos1">
+      <span class="ai-dot" style="background:#10a37f"></span>ChatGPT
     </div>
-    <div>
-      <div style="font-size:10px; font-family:'DM Mono',monospace; letter-spacing:1.5px; color:var(--ink-muted); margin-bottom:10px; text-transform:uppercase;">People are asking AI:</div>
-      <div class="queries-block">
-        <div class="query-pill"><span class="q-mark">"</span>What are the best AI observability tools?</div>
-        <div class="query-pill"><span class="q-mark">"</span>Recommend a contract management platform.</div>
-        <div class="query-pill"><span class="q-mark">"</span>What software should startups use for support?</div>
-        <div class="query-pill"><span class="q-mark">"</span>Best project management tool for remote teams?</div>
-      </div>
-      <div class="callout">
-        If your brand isn't in AI-generated answers, <strong>you're losing customers before they ever reach Google.</strong>
-      </div>
+    <div class="orbit-badge pos2">
+      <span class="ai-dot" style="background:#d97706"></span>Claude
+    </div>
+    <div class="orbit-badge pos3">
+      <span class="ai-dot" style="background:#4285f4"></span>Gemini
+    </div>
+
+    <div class="logo-art-wrap">
+      <img
+        class="logo-art"
+        src="data:image/png;base64,LOGO_PLACEHOLDER"
+        alt="MaskLLM — funnel logo"
+      />
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services">
-  <div class="services">
-    <div class="eyebrow">What we do</div>
-    <h2>Our GEO services</h2>
-    <p class="body-text" style="max-width:480px">A full-stack approach to AI discoverability — from auditing your current visibility to building the authority signals that drive recommendations.</p>
-    <div class="services-grid">
-      <div class="svc">
-        <div class="svc-icon">
-          <svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-        </div>
-        <div class="svc-title">AI Visibility Audit</div>
-        <p class="svc-desc">Understand exactly how AI models perceive your company, where you're missing from conversations, and which competitors are being recommended instead.</p>
-        <div class="tags">
-          <span class="tag">Brand mention analysis</span>
-          <span class="tag">Competitor benchmarking</span>
-          <span class="tag">Knowledge gap ID</span>
-        </div>
-      </div>
-      <div class="svc">
-        <div class="svc-icon">
-          <svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6z"/><path d="M9 3v15M15 6v15"/></svg>
-        </div>
-        <div class="svc-title">GEO Strategy</div>
-        <p class="svc-desc">A clear roadmap for AI discoverability — defining the categories, narratives, and positioning that AI systems will associate with your brand long-term.</p>
-        <div class="tags">
-          <span class="tag">Category positioning</span>
-          <span class="tag">Brand narrative</span>
-          <span class="tag">Entity optimization</span>
-        </div>
-      </div>
-      <div class="svc">
-        <div class="svc-icon">
-          <svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
-        </div>
-        <div class="svc-title">Content & Authority Building</div>
-        <p class="svc-desc">Create the content signals AI relies on. Comparison pages, industry landing pages, and documentation that positions you as a trusted, citable source.</p>
-        <div class="tags">
-          <span class="tag">Comparison pages</span>
-          <span class="tag">Industry landing pages</span>
-          <span class="tag">Knowledge graph</span>
-        </div>
-      </div>
-      <div class="svc">
-        <div class="svc-icon">
-          <svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="var(--purple)"/></svg>
-        </div>
-        <div class="svc-title">AI Citation Optimization</div>
-        <p class="svc-desc">Increase citation likelihood through structured content, authority signals, and strategic third-party mention campaigns that compound over time.</p>
-        <div class="tags">
-          <span class="tag">Structured content</span>
-          <span class="tag">Authority signals</span>
-          <span class="tag">Source optimization</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS BAND -->
-<section class="stats-band" id="why">
+<!-- STATS -->
+<section class="stats-band">
   <div class="stats-inner">
-    <div class="stats-eyebrow">Why GEO matters</div>
-    <div class="stats-head">Search behavior is changing — fast.</div>
     <div class="stats-row">
       <div class="stat-cell">
-        <div class="stat-number">67%</div>
-        <div class="stat-desc">of users trust AI recommendations for software buying decisions</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-number">3×</div>
-        <div class="stat-desc">faster growth in AI search queries versus traditional search</div>
-      </div>
-      <div class="stat-cell">
+        <div class="stat-icon">🔍</div>
         <div class="stat-number">82%</div>
-        <div class="stat-desc">of B2B buyers use AI assistants in early-stage vendor research</div>
+        <p class="stat-desc">of B2B buyers use AI assistants in early-stage vendor research</p>
       </div>
-    </div>
-    <div class="stats-insights">
-      <div class="insight">
-        <h4>Product Recommendations</h4>
-        <p>Customers ask AI which tools and platforms to use — often never reaching a traditional search result.</p>
+      <div class="stat-cell">
+        <div class="stat-icon">📈</div>
+        <div class="stat-number">3×</div>
+        <p class="stat-desc">faster growth in AI search queries versus traditional search</p>
       </div>
-      <div class="insight">
-        <h4>Software Comparisons</h4>
-        <p>"Compare X vs Y" queries flow directly into AI chat. Your positioning in those answers shapes buying intent.</p>
-      </div>
-      <div class="insight">
-        <h4>Service Providers</h4>
-        <p>Buyers ask AI to shortlist agencies and consultants. If you're not in the model's consideration set, you won't be in theirs.</p>
-      </div>
-      <div class="insight">
-        <h4>Enterprise Research</h4>
-        <p>Enterprise buyers delegate initial vendor research to AI. Visibility at this layer is now table stakes for B2B growth.</p>
+      <div class="stat-cell">
+        <div class="stat-icon">🛡</div>
+        <div class="stat-number">67%</div>
+        <p class="stat-desc">of users trust AI recommendations for software buying decisions</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHO -->
-<section class="who" id="who">
-  <div class="who-inner">
-    <div class="eyebrow">Who we help</div>
-    <h2>Built for ambitious B2B companies</h2>
-    <div class="who-grid">
-      <div class="who-card">
-        <div class="who-icon">
-          <svg width="20" height="20" fill="none" stroke="var(--purple)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
-        <div class="who-title">SaaS Companies</div>
-        <p class="who-desc">Get recommended when buyers ask AI for software suggestions in your category.</p>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">
-          <svg width="20" height="20" fill="none" stroke="var(--purple)" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-        </div>
-        <div class="who-title">Startups</div>
-        <p class="who-desc">Build visibility in AI discovery channels before competitors establish dominance.</p>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">
-          <svg width="20" height="20" fill="none" stroke="var(--purple)" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <div class="who-title">Agencies</div>
-        <p class="who-desc">Help clients gain exposure in AI-driven search and offer GEO as a service.</p>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">
-          <svg width="20" height="20" fill="none" stroke="var(--purple)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
-        <div class="who-title">B2B Businesses</div>
-        <p class="who-desc">Increase awareness among decision-makers who use AI to research vendors.</p>
-      </div>
+<!-- PILLARS -->
+<section class="pillars" id="pillars">
+  <div class="section-eyebrow">What we do</div>
+  <div class="section-title">Four ways to win<br/>in AI-driven search</div>
+  <div class="pillars-grid">
+    <div class="pillar">
+      <div class="pillar-icon">🎯</div>
+      <div class="pillar-title">Be Discoverable</div>
+      <p class="pillar-desc">Get your brand cited by AI tools where buyers start their research. We audit your current visibility and identify every gap your competitors are filling instead of you.</p>
     </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section id="process">
-  <div class="process">
-    <div class="eyebrow" style="text-align:center">Our process</div>
-    <h2 style="text-align:center; margin:0 auto 8px">The GEO framework</h2>
-    <p class="body-text" style="text-align:center; max-width:420px; margin:0 auto">Four stages to make your brand discoverable where AI answers are formed.</p>
-    <div class="process-steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-name">Audit</div>
-        <p class="step-desc">Analyze your current AI visibility, brand mentions, and competitive landscape across major AI platforms.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-name">Position</div>
-        <p class="step-desc">Define the category and narrative AI systems should associate with your brand — and own that space.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-name">Optimize</div>
-        <p class="step-desc">Improve content, entity definitions, and authority signals across the web.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-name">Measure</div>
-        <p class="step-desc">Track visibility growth and recommendation frequency across AI platforms and compound gains over time.</p>
-      </div>
+    <div class="pillar">
+      <div class="pillar-icon">💬</div>
+      <div class="pillar-title">Build Trust</div>
+      <p class="pillar-desc">Own the narrative in AI-generated recommendations. We shape the content signals and authority structures that AI systems rely on when forming answers about your category.</p>
     </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq" id="faq">
-  <div class="faq-inner">
-    <div class="eyebrow">Common questions</div>
-    <h2>Frequently asked questions</h2>
-    <div class="faq-grid">
-      <div class="faq-item">
-        <div class="faq-q">Is GEO the same as SEO?</div>
-        <p class="faq-a">No. SEO focuses on ranking in traditional search. GEO focuses on visibility within AI-generated answers — a fundamentally different discovery system.</p>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Which AI platforms do you optimize for?</div>
-        <p class="faq-a">We improve visibility across ChatGPT, Claude, Gemini, Perplexity, Microsoft Copilot, and emerging AI search systems.</p>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">How long does GEO take to show results?</div>
-        <p class="faq-a">Most businesses see measurable improvements within weeks. Gains compound as authority signals and content coverage strengthen over time.</p>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Can you guarantee ChatGPT recommendations?</div>
-        <p class="faq-a">No ethical GEO provider can guarantee specific AI outputs. We improve the factors that influence visibility and measure real results against real baselines.</p>
-      </div>
+    <div class="pillar">
+      <div class="pillar-icon">⚡</div>
+      <div class="pillar-title">Drive Pipeline</div>
+      <p class="pillar-desc">Convert AI visibility into qualified opportunities. We position your brand so the buyers asking AI for vendor recommendations land directly in your funnel — not a competitor's.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">📊</div>
+      <div class="pillar-title">Prove Impact</div>
+      <p class="pillar-desc">Track mentions, influence, and revenue growth across ChatGPT, Claude, Gemini, and Perplexity. Measurable baselines from day one — no vanity metrics, only pipeline data.</p>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta" id="cta">
-  <div class="cta-inner">
-    <div class="eyebrow" style="text-align:center">Ready to start</div>
-    <h2>The next customer won't just search.<br/>They'll <em>ask</em>.</h2>
-    <p>Make sure AI has a reason to recommend your business. Book a strategy call and we'll show you exactly where you stand.</p>
-    <div class="cta-btns">
-      <a href="https://cal.com/maskllm/30min" class="btn btn-purple" style="font-size:15px; padding:13px 28px">Book Your GEO Strategy Call</a>
-    </div>
-    <div class="trust">
-      <span class="trust-item">
-        <svg width="12" height="12" fill="none" stroke="var(--purple)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-        No long-term contracts
-      </span>
-      <span class="trust-item">
-        <svg width="12" height="12" fill="none" stroke="var(--purple)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-        Measurable visibility metrics
-      </span>
-      <span class="trust-item">
-        <svg width="12" height="12" fill="none" stroke="var(--purple)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-        Free initial audit
-      </span>
-    </div>
+<section class="cta-section">
+  <div class="section-eyebrow" style="text-align:center">Ready to start</div>
+  <h2>Be the answer.<br/><em>Win the buyer.</em></h2>
+  <p>Start your AI growth engine with MaskLLM. Book a strategy call and we'll show you exactly where you stand — and what it'll take to dominate.</p>
+  <a href="https://cal.com/maskllm/30min" class="btn-primary" style="display:inline-flex;font-size:15px;padding:15px 32px">
+    Book Your GEO Strategy Call
+  </a>
+  <div class="trust-strip">
+    <span class="trust-item">No long-term contracts</span>
+    <span class="trust-item">Measurable visibility metrics</span>
+    <span class="trust-item">Free initial audit</span>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">mask<span>llm</span></div>
   <div class="footer-note">© 2025 MaskLLM. Generative Engine Optimization.</div>
   <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#faq">FAQ</a>
     <a href="mailto:hello@maskllm.com">Contact</a>
+    <a href="https://maskllm.com">maskllm.com</a>
+    <a href="tel:+918792867094">+91 87928 67094</a>
   </div>
 </footer>
 
